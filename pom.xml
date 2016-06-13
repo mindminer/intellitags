@@ -4,6 +4,9 @@
     <groupId>com.mindminer</groupId>
     <artifactId>intellitags</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>intellitags-files</module>
+    </modules>
     <packaging>pom</packaging>
 
     <name>intellitags</name>
