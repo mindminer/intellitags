@@ -11,5 +11,22 @@
 
     <artifactId>intellitags-files</artifactId>
 
+    <properties>
+        <web-core.version>1.0.0-SNAPSHOT</web-core.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wang</groupId>
+            <artifactId>web-core</artifactId>
+            <version>${web-core.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
