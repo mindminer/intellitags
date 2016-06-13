@@ -1,13 +1,14 @@
-package com.mindminer.intellitags
+package net.tinybrick.intellitags
 
-import com.mindminer.intellitags.logger.Loggable
 import com.wang.web.configure.ApplicationCoreConfigure
+import net.tinybrick.intellitags.logger.Loggable
 import org.springframework.boot.{Banner, SpringApplication}
 import org.springframework.context.annotation.{ComponentScan, Import}
+
 /**
   * Created by wangji on 2016/6/13.
   */
-object MainClass extends Loggable{
+object MainClass extends Loggable {
     def main(args: Array[String]) {
         val app = new SpringApplication(classOf[MainClass])
         app.setBannerMode(Banner.Mode.OFF)

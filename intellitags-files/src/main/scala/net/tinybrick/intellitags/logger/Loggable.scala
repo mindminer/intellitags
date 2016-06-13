@@ -1,4 +1,4 @@
-package com.mindminer.intellitags.logger
+package net.tinybrick.intellitags.logger
 
 import org.apache.log4j.Logger
 

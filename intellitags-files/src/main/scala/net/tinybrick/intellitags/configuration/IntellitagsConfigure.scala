@@ -1,6 +1,6 @@
-package com.mindminer.intellitags.configuration
+package net.tinybrick.intellitags.configuration
 
-import com.mindminer.intellitags.logger.Loggable
+import net.tinybrick.intellitags.logger.Loggable
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.{Bean, Configuration, PropertySource}
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
