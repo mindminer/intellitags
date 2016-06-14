@@ -1,6 +1,7 @@
 package net.tinybrick.intellitags
 
-import com.wang.web.configure.ApplicationCoreConfigure
+import net.tinybrick.doc.configuration.AipDocConfigure
+import net.tinybrick.web.configure.ApplicationCoreConfigure
 import net.tinybrick.intellitags.logger.Loggable
 import org.springframework.boot.{Banner, SpringApplication}
 import org.springframework.context.annotation.{ComponentScan, Import}
@@ -19,5 +20,5 @@ object MainClass extends Loggable {
 }
 
 @ComponentScan
-@Import(value = Array(classOf[ApplicationCoreConfigure]))
+@Import(value = Array(classOf[ApplicationCoreConfigure], classOf[AipDocConfigure]))
 class MainClass {}

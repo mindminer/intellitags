@@ -14,6 +14,7 @@
 
     <properties>
         <web-core.version>1.0.0-SNAPSHOT</web-core.version>
+        <doc-swagger.version>1.0.0-SNAPSHOT</doc-swagger.version>
     </properties>
 
     <dependencies>
@@ -27,6 +28,18 @@
             <groupId>net.tinybrick</groupId>
             <artifactId>web-core</artifactId>
             <version>${web-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml</groupId>
+                    <artifactId>classmate</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>net.tinybrick</groupId>
+            <artifactId>doc-swagger</artifactId>
+            <version>${doc-swagger.version}</version>
         </dependency>
     </dependencies>
 </project>
