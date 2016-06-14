@@ -2,10 +2,8 @@ package net.tinybrick.intellitags.controllers
 
 import javax.annotation.PostConstruct
 
-import net.tinybrick.doc.annotation.ApiDocDefination
-import net.tinybrick.doc.configuration.AutoApiDocEnabler
+import net.tinybrick.doc.annotation.{ApiDoc}
 import net.tinybrick.intellitags.logger.Loggable
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.{RestController, RequestMapping}
 
 /**
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.{RestController, RequestMapping}
   */
 @RestController
 @RequestMapping(Array("/v1.0"))
-@ApiDocDefination()
+@ApiDoc
 class HomeController extends Loggable{
     @RequestMapping(value = Array("/version")) private[intellitags]
     def getDemo: String = {
@@ -23,10 +21,10 @@ class HomeController extends Loggable{
 
 @RestController
 @RequestMapping(Array("/v2.0"))
-@ApiDocDefination()
-class HomeControllerV2 extends Loggable{
+@ApiDoc
+class HomeControllerV2 extends HomeController with Loggable{
     @RequestMapping(value = Array("/version")) private[intellitags]
-    /*override*/ def getDemo: String = {
+    override def getDemo: String = {
         return "Hello World version 2.0"
     }
 }
