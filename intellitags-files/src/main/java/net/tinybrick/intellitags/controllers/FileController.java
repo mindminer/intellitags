@@ -98,7 +98,7 @@ public class FileController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
-    public String uploadSingleFile(@RequestParam(value="file",required = false) MultipartFile files, @RequestParam(value="ticket",required = false) String ticket)
+    public String uploadSingleFile(@RequestParam(value="file") MultipartFile files, @RequestParam(value="ticket",required = false) String ticket)
             throws IllegalStateException, IOException {
         return null;
     }
