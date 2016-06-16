@@ -58,7 +58,7 @@ public class TagController {
     @RequestMapping(value = "/tag",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> list(@RequestParam(value="page",required = false) int page) {
+    public List<Tag> list(@RequestParam(value="page",required = false) Integer page) {
         return null;
     }
 
@@ -70,7 +70,7 @@ public class TagController {
     @RequestMapping(value = "/tag/{tagId}/relatives",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listRelatives(@PathVariable String[] tagIds, @RequestParam(value="page",required = false)int page) {
+    public List<Tag> listRelatives(@PathVariable String[] tagIds, @RequestParam(value="page",required = false)Integer page) {
         return null;
     }
 
@@ -82,7 +82,7 @@ public class TagController {
     @RequestMapping(value = "/tag/{fileId}/association",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listAssociation(@PathVariable String fileId, @RequestParam(value="page",required = false)int page) {
+    public List<Tag> listAssociation(@PathVariable String fileId, @RequestParam(value="page",required = false)Integer page) {
         return null;
     }
 
