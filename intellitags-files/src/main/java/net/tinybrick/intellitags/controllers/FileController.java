@@ -2,6 +2,8 @@ package net.tinybrick.intellitags.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.tinybrick.intellitags.model.File;
+import net.tinybrick.intellitags.model.Tag;
 import net.tinybrick.utils.crypto.MD5;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/v1.0")
-@Api(value = "有关传送文件的API", tags = {"版本v1.0"}, basePath= "/v1.0")
+@Api(value = "有关传送文件的API", tags = {"版本v1.0"})
 //@ApiDoc
 public class FileController {
     private static Logger logger = Logger.getLogger(FileController.class);
@@ -158,5 +161,19 @@ public class FileController {
             throws IllegalStateException, IOException {
         Map<String, String> fileMap = new HashMap<String, String>();
         return fileMap;
+    }
+
+    @ApiOperation(value = "获得文件列表",
+            notes = "获得指定标签下的文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表<p>"
+                    + "<br>输入 tags (可选)"
+                    + "<p>输出 指定标签下的文件列表。")
+    @RequestMapping(value = "/list",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ResponseBody
+    public File[] list(@RequestParam(value="tags", required = false) String tags) {
+        File file = new File();
+        file.setName("filename.txt");
+        return new File[]{file};
     }
 }
