@@ -3,7 +3,6 @@ package net.tinybrick.intellitags.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.tinybrick.intellitags.model.File;
-import net.tinybrick.intellitags.model.Tag;
 import net.tinybrick.utils.crypto.MD5;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -36,9 +35,9 @@ public class FileController {
      * @return
      */
     @ApiOperation(value = "申请临时传送令牌",
-            notes = "为防止文件过大，导致传送中断，在发送文件之前可以申请一个零时令牌，系统根据零时令牌的存活状态来判断文件是否已经传送结束" +
-                    "如果文件传送过程中出现中断，可以通过临时令牌实现断点续传。<p>"
-                    + "<br>输入 ticket")
+            notes = "<p>为防止文件过大，导致传送中断，在发送文件之前可以申请一个零时令牌，系统根据零时令牌的存活状态来判断文件是否已经传送结束" +
+                    "如果文件传送过程中出现中断，可以通过临时令牌实现断点续传。"
+                    + "<p>输出 ticket")
     @RequestMapping(value = "/ticket",
             method = {RequestMethod.GET},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -57,8 +56,8 @@ public class FileController {
      * @param ticket
      */
     @ApiOperation(value = "销毁令牌",
-            notes = "文件发送完成后只需要销毁零时令牌即可冻结文件。请及时销毁零时令牌，系统有可能不定期清除未冻结的临时文件导致数据丢失。<p>"
-                    + "<br>输入 ticket")
+            notes = "<p>文件发送完成后只需要销毁零时令牌即可冻结文件。请及时销毁零时令牌，系统有可能不定期清除未冻结的临时文件导致数据丢失。"
+                    + "<p>输入 ticket")
     @RequestMapping(value = {"/ticket/{ticket}"},
             method = {RequestMethod.DELETE})
     @ResponseStatus(HttpStatus.OK)
@@ -71,8 +70,8 @@ public class FileController {
      * @return
      */
     @ApiOperation(value = "检查文件偏移量",
-            notes = "如果发生文件传送中断，可以通过这个方法查寻文件当前的偏移量，程序将返回已接收文件的长度。<p>"
-                    + "<br>输入 ticket"
+            notes = "<p>如果发生文件传送中断，可以通过这个方法查寻文件当前的偏移量，程序将返回已接收文件的长度。"
+                    + "<p>输入 ticket"
                     + "<p>输出 offset")
     @RequestMapping(value = {"/file/offset/{ticket}"},
             method = {RequestMethod.GET},
@@ -92,8 +91,8 @@ public class FileController {
      * @throws IOException
      */
     @ApiOperation(value = "上载单个文件",
-            notes = "这个接口一次只接受一个文件。ticket参数为可选，如果不提供ticket，系统将不支持断点续传。<p>"
-                    + "<br>输入 file"
+            notes = "<p>这个接口一次只接受一个文件。ticket参数为可选，如果不提供ticket，系统将不支持断点续传。"
+                    + "<p>输入 file"
                     + "<br>输入 ticket（可选）如果上载的时候提供了 ticket，并且文件上载成功，没有发生意外，零时ticket将自动销毁"
                     + "<p>输出 上载成功后返回文件ID。")
     @RequestMapping(value = "/file",
@@ -113,8 +112,8 @@ public class FileController {
      * @return
      */
     @ApiOperation(value = "追加上载单个文件",
-            notes = "这个接口一次只接受对一个文件的追加上载，并且ticket参数为必须，<p>"
-                    + "<br>输入 file"
+            notes = "<p>这个接口一次只接受对一个文件的追加上载，并且ticket参数为必须，"
+                    + "<p>输入 file"
                     + "<br>输入 ticket 如果上载结束前没有发生意外，零时ticket将自动销毁"
                     + "<p>输出 上载成功后返回文件ID。")
     @RequestMapping(value = "/file/{ticket}",
@@ -131,13 +130,12 @@ public class FileController {
      * @param id
      */
     @ApiOperation(value = "删除单个文件",
-            notes = "这个接口一次只接受对一个文件的删除<p>"
-                    + "<br>输入 id")
+            notes = "<p>这个接口一次只接受对一个文件的删除"
+                    + "<p>输入 id")
     @RequestMapping(value = "/file/{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteFile( @PathVariable("id") String id) {
-        ;
     }
 
     /**
@@ -149,8 +147,8 @@ public class FileController {
      * @throws IOException
      */
     @ApiOperation(value = "同时上载多个文件",
-            notes = "这个接口接受同时上载多个文件，但不支持断点续传。<p>"
-                    + "<br>输入 file"
+            notes = "<p>这个接口接受同时上载多个文件，但不支持断点续传。"
+                    + "<p>输入 file"
                     + "<p>输出 上载成功后返回文件ID和文件名的对照表。")
     @RequestMapping(value = "/files",
             method = RequestMethod.POST,
@@ -164,8 +162,8 @@ public class FileController {
     }
 
     @ApiOperation(value = "获得文件列表",
-            notes = "获得指定标签下的文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表<p>"
-                    + "<br>输入 page 页号"
+            notes = "<p>获得指定标签下的文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表"
+                    + "<p>输入 page 页号"
                     + "<br>输入 tags (可选)"
                     + "<p>输出 指定标签下的文件列表。")
     @RequestMapping(value = "/list",
@@ -177,19 +175,18 @@ public class FileController {
     }
 
     @ApiOperation(value = "修改文件名",
-            notes = "修改文件的名称<p>"
-                    + "<br>输入 id 文件ID"
+            notes = "<p>修改文件的名称"
+                    + "<p>输入 id 文件ID"
                     + "<br>输入 newName 新文件名")
     @RequestMapping(value = "/file/name/{id}/{name}",
             method = RequestMethod.PUT)
     public void rename(@PathVariable String id, @PathVariable String newName) {
-        ;
     }
 
 
     @ApiOperation(value = "下载文件",
-            notes = "下载一个文件<p>"
-                    + "<br>输入 id 文件ID"
+            notes = "<p>下载一个文件"
+                    + "<p>输入 id 文件ID"
                     + "<br>输入 offset 偏移量（可选）。用于支持断点续传，如果没有提供则从头下载"
                     + "<br>输入 length 下载长度（可选）。用于支持断点续传，如果没有提供则一直下载到文件结束")
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
@@ -197,6 +194,5 @@ public class FileController {
                          @RequestParam(value="offset", required = false)  int offset,
                          @RequestParam(value="length", required = false)  int length,
                          HttpServletResponse response) {
-        ;
     }
 }

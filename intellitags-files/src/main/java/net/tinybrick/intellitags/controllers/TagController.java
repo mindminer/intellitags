@@ -21,8 +21,8 @@ public class TagController {
     private static Logger logger = Logger.getLogger(TagController.class);
 
     @ApiOperation(value = "添加标签",
-            notes = "添加新的标签<p>"
-                    + "<br>输入 name 标签名"
+            notes = "<p>添加新的标签"
+                    + "<p>输入 name 标签名"
                     + "<p>输出 新的标签id")
     @RequestMapping(value = "/tag/{name}",
             method = {RequestMethod.POST},
@@ -33,8 +33,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "重命名",
-            notes = "重命名标签<p>"
-                    + "<br>输入 id 标签编号"
+            notes = "<p>重命名标签"
+                    + "<p>输入 id 标签编号"
                     + "<br>输入 newName 新标签名")
     @RequestMapping(value = "/tag/{id}/{newName}",
             method = {RequestMethod.PUT})
@@ -43,8 +43,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "删除标签",
-            notes = "删除标签<p>"
-                    + "<br>输入 id 标签编号")
+            notes = "<p>删除标签"
+                    + "<p>输入 id 标签编号")
     @RequestMapping(value = "/tag/{id}",
             method = {RequestMethod.DELETE})
     public void delete(@PathVariable String id) {
@@ -52,8 +52,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "罗列标签",
-            notes = "简单罗列出所有的标签<p>"
-                    + "<br>输入 page 页号"
+            notes = "<p>简单罗列出所有的标签"
+                    + "<p>输入 page 页号"
                     + "<p>输出 标签列表。")
     @RequestMapping(value = "/tag",
             method = {RequestMethod.GET})
@@ -63,8 +63,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "列出相关标签",
-            notes = "罗列出与给定的标签有关联的其他标签<p>"
-                    + "<br>输入 tagId 标签ID。如果输入多个标签，则返回交集"
+            notes = "<p>罗列出与给定的标签有关联的其他标签"
+                    + "<p>输入 tagId 标签ID。如果输入多个标签，则返回交集"
                     + "<br>输入 page 页号(可选，缺省第一页)"
                     + "<p>输出 标签列表。")
     @RequestMapping(value = "/tag/{tagId}/relatives",
@@ -75,8 +75,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "列出相关标签",
-            notes = "根据给定的文件，列出其所关联的标签<p>"
-                    + "<br>输入 fileId 文件ID"
+            notes = "<p>根据给定的文件，列出其所关联的标签"
+                    + "<p>输入 fileId 文件ID"
                     + "<br>输入 page 页号(可选，缺省第一页)"
                     + "<p>输出 标签列表。")
     @RequestMapping(value = "/tag/{fileId}/association",
@@ -87,8 +87,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "贴标签",
-            notes = "为文件贴上标签<p>"
-                    + "<br>输入 fileId 文件编号"
+            notes = "<p>为文件贴上标签"
+                    + "<p>输入 fileId 文件编号"
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.POST})
@@ -97,8 +97,8 @@ public class TagController {
     }
 
     @ApiOperation(value = "取消标签",
-            notes = "为文件取消一个标签<p>"
-                    + "<br>输入 fileId 文件编号"
+            notes = "<p>为文件取消一个标签"
+                    + "<p>输入 fileId 文件编号"
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.DELETE})
