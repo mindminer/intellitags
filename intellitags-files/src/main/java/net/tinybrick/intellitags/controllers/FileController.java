@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/v1.0")
-@Api(value = "有关传送文件的API", tags = {"版本v1.0"})
+@Api(value = "文件管理 API", tags = {"版本v1.0", "文件管理"})
 //@ApiDoc
 public class FileController {
     private static Logger logger = Logger.getLogger(FileController.class);
@@ -60,7 +61,6 @@ public class FileController {
                     + "<br>输入 ticket")
     @RequestMapping(value = {"/ticket/{ticket}"},
             method = {RequestMethod.DELETE})
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public void uploadEnd(@PathVariable("ticket") String ticket) {
         logger.debug(String.format("Thicket %s is withdrawn", ticket));
@@ -157,7 +157,7 @@ public class FileController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
-    public Map<String, String> uploadFiles(@RequestParam("file") MultipartFile[] files)
+    public Map<String, String> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files)
             throws IllegalStateException, IOException {
         Map<String, String> fileMap = new HashMap<String, String>();
         return fileMap;
@@ -165,15 +165,38 @@ public class FileController {
 
     @ApiOperation(value = "获得文件列表",
             notes = "获得指定标签下的文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表<p>"
+                    + "<br>输入 page 页号"
                     + "<br>输入 tags (可选)"
                     + "<p>输出 指定标签下的文件列表。")
     @RequestMapping(value = "/list",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public File[] list(@RequestParam(value="tags", required = false) String tags) {
-        File file = new File();
-        file.setName("filename.txt");
-        return new File[]{file};
+    public List<File> list(@RequestParam(value="page", required = false) int page, @RequestParam(value="tags", required = false) String[] tags) {
+        return null;
+    }
+
+    @ApiOperation(value = "修改文件名",
+            notes = "修改文件的名称<p>"
+                    + "<br>输入 id 文件ID"
+                    + "<br>输入 newName 新文件名")
+    @RequestMapping(value = "/file/name/{id}/{name}",
+            method = RequestMethod.PUT)
+    public void rename(@PathVariable String id, @PathVariable String newName) {
+        ;
+    }
+
+
+    @ApiOperation(value = "下载文件",
+            notes = "下载一个文件<p>"
+                    + "<br>输入 id 文件ID"
+                    + "<br>输入 offset 偏移量（可选）。用于支持断点续传，如果没有提供则从头下载"
+                    + "<br>输入 length 下载长度（可选）。用于支持断点续传，如果没有提供则一直下载到文件结束")
+    @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
+    public void download(@PathVariable String id,
+                         @RequestParam(value="offset", required = false)  int offset,
+                         @RequestParam(value="length", required = false)  int length,
+                         HttpServletResponse response) {
+        ;
     }
 }
