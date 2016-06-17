@@ -87,7 +87,8 @@ public interface FileController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
-    public String uploadSingleFile(@RequestParam(value="file") MultipartFile files, @RequestParam(value="ticket",required = false) String ticket)
+    public String uploadSingleFile(@RequestParam(value="file") MultipartFile files,
+                                   @RequestParam(value="ticket",required = false) String ticket)
             throws IllegalStateException, IOException;
 
     /**
@@ -106,7 +107,8 @@ public interface FileController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
-    public String patchSingleFile(@RequestParam("file") MultipartFile files, @PathVariable String ticket);
+    public String patchSingleFile(@RequestParam("file") MultipartFile files,
+                                  @PathVariable String ticket);
 
     /**
      *
@@ -152,7 +154,7 @@ public interface FileController {
     @ResponseBody
     public List<File> list(@RequestParam(value="tags", required = false) String[] patterns,
                            @RequestParam(value="tags", required = false) String[] tags,
-                           @RequestParam(value="page", required = false) int page);
+                           @RequestParam(value="page", required = false) Integer page);
 
     @ApiOperation(value = "修改文件名",
             notes = "<p>修改文件的名称"
@@ -170,7 +172,7 @@ public interface FileController {
                     + "<br>输入 length 下载长度（可选）。用于支持断点续传，如果没有提供则一直下载到文件结束")
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
     public void download(@PathVariable String id,
-                         @RequestParam(value="offset", required = false)  int offset,
-                         @RequestParam(value="length", required = false)  int length,
+                         @RequestParam(value="offset", required = false)  Integer offset,
+                         @RequestParam(value="length", required = false)  Integer length,
                          HttpServletResponse response);
 }
