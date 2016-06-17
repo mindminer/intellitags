@@ -3,8 +3,6 @@ package net.tinybrick.intellitags.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.tinybrick.intellitags.model.File;
-import net.tinybrick.utils.crypto.MD5;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
