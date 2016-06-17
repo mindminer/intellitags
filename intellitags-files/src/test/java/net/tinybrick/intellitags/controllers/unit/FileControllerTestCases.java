@@ -4,7 +4,7 @@ import net.tinybrick.intellitags.IntellitagsMain;
 import net.tinybrick.intellitags.configuration.IntellitagsConfigure;
 import net.tinybrick.intellitags.model.Tag;
 import net.tinybrick.web.configure.ApplicationCoreConfigure;
-import net.tinybrick.web.unit.ControllerTestBase;
+import net.tinybrick.test.web.unit.ControllerTestBase;
 import org.junit.Test;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
