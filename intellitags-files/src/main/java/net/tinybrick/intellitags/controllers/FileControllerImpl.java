@@ -1,11 +1,8 @@
 package net.tinybrick.intellitags.controllers;
 
-import io.swagger.annotations.ApiOperation;
 import net.tinybrick.intellitags.model.File;
 import net.tinybrick.utils.crypto.MD5;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +27,7 @@ public class FileControllerImpl implements FileController{
      *
      * @return
      */
+    @Override
     public String[] uploadBegin() {
         return new String[] {MD5.hash(String.valueOf(new Date()))};
     }
@@ -41,6 +39,7 @@ public class FileControllerImpl implements FileController{
      *
      * @param ticket
      */
+    @Override
     public void uploadEnd(String ticket) {
         logger.debug(String.format("Thicket %s is withdrawn", ticket));
     }
@@ -49,6 +48,7 @@ public class FileControllerImpl implements FileController{
      * @param ticket
      * @return
      */
+    @Override
     public Integer queryOffset( String ticket){
         return 1024;
     }
@@ -62,6 +62,7 @@ public class FileControllerImpl implements FileController{
      * @throws IllegalStateException
      * @throws IOException
      */
+    @Override
     public String uploadSingleFile( MultipartFile files, String ticket)
             throws IllegalStateException, IOException {
         return null;
@@ -73,6 +74,7 @@ public class FileControllerImpl implements FileController{
      * @param ticket
      * @return
      */
+    @Override
     public String patchSingleFile( MultipartFile files,  String ticket) {
         return null;
     }
@@ -81,6 +83,7 @@ public class FileControllerImpl implements FileController{
      *
      * @param id
      */
+    @Override
     public void deleteFile( String id) {
     }
 
@@ -92,19 +95,21 @@ public class FileControllerImpl implements FileController{
      * @throws IllegalStateException
      * @throws IOException
      */
+    @Override
     public Map<String, String> uploadMultipleFiles( MultipartFile[] files)
             throws IllegalStateException, IOException {
         Map<String, String> fileMap = new HashMap<String, String>();
         return fileMap;
     }
 
+    @Override
     public List<File> list( String[] patterns,
                             String[] tags,
                             int page) {
         return null;
     }
 
-
+    @Override
     public void rename( String id,  String newName) {
     }
 
