@@ -2,9 +2,7 @@ package net.tinybrick.intellitags.controllers;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.tinybrick.intellitags.model.File;
 import net.tinybrick.intellitags.model.Tag;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +12,9 @@ import java.util.List;
 /**
  * Created by wangji on 2016/6/16.
  */
-@RestController
 @RequestMapping("/v1.0")
 @Api(value = "标签管理 API", tags = {"版本v1.0", "标签管理"})
-public class TagController {
-    private static Logger logger = Logger.getLogger(TagController.class);
+public interface TagController {
 
     @ApiOperation(value = "添加标签",
             notes = "<p>添加新的标签"
@@ -28,9 +24,7 @@ public class TagController {
             method = {RequestMethod.POST},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public String addTag(@PathVariable String name){
-        return null;
-    }
+    public String addTag(@PathVariable String name);
 
     @ApiOperation(value = "重命名",
             notes = "<p>重命名标签"
@@ -38,18 +32,14 @@ public class TagController {
                     + "<br>输入 newName 新标签名")
     @RequestMapping(value = "/tag/{id}/{newName}",
             method = {RequestMethod.PUT})
-    public void rename(@PathVariable String id, @PathVariable String newName) {
-        ;
-    }
+    public void rename(@PathVariable String id, @PathVariable String newName);
 
     @ApiOperation(value = "删除标签",
             notes = "<p>删除标签"
                     + "<p>输入 id 标签编号")
     @RequestMapping(value = "/tag/{id}",
             method = {RequestMethod.DELETE})
-    public void delete(@PathVariable String id) {
-        ;
-    }
+    public void delete(@PathVariable String id);
 
     @ApiOperation(value = "罗列标签",
             notes = "<p>简单罗列出所有的标签"
@@ -58,9 +48,7 @@ public class TagController {
     @RequestMapping(value = "/tag",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> list(@RequestParam(value="page",required = false) Integer page) {
-        return null;
-    }
+    public List<Tag> list(@RequestParam(value="page",required = false) Integer page);
 
     @ApiOperation(value = "列出相关标签",
             notes = "<p>罗列出与给定的标签有关联的其他标签"
@@ -70,9 +58,7 @@ public class TagController {
     @RequestMapping(value = "/tag/{tagId}/relatives",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listRelatives(@PathVariable String[] tagIds, @RequestParam(value="page",required = false)Integer page) {
-        return null;
-    }
+    public List<Tag> listRelatives(@PathVariable String[] tagIds, @RequestParam(value="page",required = false)Integer page);
 
     @ApiOperation(value = "列出相关标签",
             notes = "<p>根据给定的文件，列出其所关联的标签"
@@ -82,9 +68,7 @@ public class TagController {
     @RequestMapping(value = "/tag/{fileId}/association",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listAssociation(@PathVariable String fileId, @RequestParam(value="page",required = false)Integer page) {
-        return null;
-    }
+    public List<Tag> listAssociation(@PathVariable String fileId, @RequestParam(value="page",required = false)Integer page);
 
     @ApiOperation(value = "贴标签",
             notes = "<p>为文件贴上标签"
@@ -92,9 +76,7 @@ public class TagController {
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.POST})
-    public void associate(@PathVariable String fileId, @PathVariable String tagId) {
-        ;
-    }
+    public void associate(@PathVariable String fileId, @PathVariable String tagId);
 
     @ApiOperation(value = "取消标签",
             notes = "<p>为文件取消一个标签"
@@ -102,7 +84,5 @@ public class TagController {
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.DELETE})
-    public void disconnection(@PathVariable String fileId, @PathVariable String tagId) {
-        ;
-    }
+    public void disconnection(@PathVariable String fileId, @PathVariable String tagId);
 }

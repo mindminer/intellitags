@@ -3,8 +3,6 @@ package net.tinybrick.intellitags.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.tinybrick.intellitags.model.File;
-import net.tinybrick.utils.crypto.MD5;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,21 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by wangji on 2016/6/15.
  */
-@RestController
 @RequestMapping("/v1.0")
 @Api(value = "文件管理 API", tags = {"版本v1.0", "文件管理"})
 //@ApiDoc
-public class FileController {
-    private static Logger logger = Logger.getLogger(FileController.class);
-
+public interface FileController {
     /**
      * Call this method to get an temporary ticket before you upload a big file.
      *
@@ -44,9 +37,7 @@ public class FileController {
             consumes = {MediaType.ALL_VALUE})
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public String[] uploadBegin() {
-        return new String[] {MD5.hash(String.valueOf(new Date()))};
-    }
+    public String[] uploadBegin();
 
     /**
      * Withdraw the temporary upload ticket when file upload is finished.
@@ -61,9 +52,7 @@ public class FileController {
     @RequestMapping(value = {"/ticket/{ticket}"},
             method = {RequestMethod.DELETE})
     @ResponseStatus(HttpStatus.OK)
-    public void uploadEnd(@PathVariable("ticket") String ticket) {
-        logger.debug(String.format("Thicket %s is withdrawn", ticket));
-    }
+    public void uploadEnd(@PathVariable("ticket") String ticket);
 
     /**
      * @param ticket
@@ -77,9 +66,7 @@ public class FileController {
             method = {RequestMethod.GET},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Integer queryOffset(@PathVariable("ticket") String ticket){
-        return 1024;
-    }
+    public Integer queryOffset(@PathVariable("ticket") String ticket);
 
     /**
      * 上载单个文件
@@ -101,9 +88,7 @@ public class FileController {
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
     public String uploadSingleFile(@RequestParam(value="file") MultipartFile files, @RequestParam(value="ticket",required = false) String ticket)
-            throws IllegalStateException, IOException {
-        return null;
-    }
+            throws IllegalStateException, IOException;
 
     /**
      *
@@ -121,9 +106,7 @@ public class FileController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
-    public String patchSingleFile(@RequestParam("file") MultipartFile files, @PathVariable String ticket) {
-        return null;
-    }
+    public String patchSingleFile(@RequestParam("file") MultipartFile files, @PathVariable String ticket);
 
     /**
      *
@@ -135,8 +118,7 @@ public class FileController {
     @RequestMapping(value = "/file/{id}",
             method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteFile( @PathVariable("id") String id) {
-    }
+    public void deleteFile( @PathVariable("id") String id);
 
     /**
      * 同时上载多个文件
@@ -156,23 +138,21 @@ public class FileController {
             consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     @ResponseBody
     public Map<String, String> uploadMultipleFiles(@RequestParam("file") MultipartFile[] files)
-            throws IllegalStateException, IOException {
-        Map<String, String> fileMap = new HashMap<String, String>();
-        return fileMap;
-    }
+            throws IllegalStateException, IOException;
 
     @ApiOperation(value = "获得文件列表",
-            notes = "<p>获得指定标签下的文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表"
-                    + "<p>输入 page 页号"
+            notes = "<p>获得指定标签（可选）下的指定（可选文件名或模式的）文件列表，可以指定多个，如果没有指定标签则返回最近上载的文件列表。"
+                    + "<br>输入 patterns (可选) 文件名，或模式"
                     + "<br>输入 tags (可选)"
+                    + "<p>输入 page 页号 (可选)"
                     + "<p>输出 指定标签下的文件列表。")
     @RequestMapping(value = "/list",
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public List<File> list(@RequestParam(value="page", required = false) int page, @RequestParam(value="tags", required = false) String[] tags) {
-        return null;
-    }
+    public List<File> list(@RequestParam(value="tags", required = false) String[] patterns,
+                           @RequestParam(value="tags", required = false) String[] tags,
+                           @RequestParam(value="page", required = false) int page);
 
     @ApiOperation(value = "修改文件名",
             notes = "<p>修改文件的名称"
@@ -180,8 +160,7 @@ public class FileController {
                     + "<br>输入 newName 新文件名")
     @RequestMapping(value = "/file/name/{id}/{name}",
             method = RequestMethod.PUT)
-    public void rename(@PathVariable String id, @PathVariable String newName) {
-    }
+    public void rename(@PathVariable String id, @PathVariable String newName);
 
 
     @ApiOperation(value = "下载文件",
@@ -193,6 +172,5 @@ public class FileController {
     public void download(@PathVariable String id,
                          @RequestParam(value="offset", required = false)  int offset,
                          @RequestParam(value="length", required = false)  int length,
-                         HttpServletResponse response) {
-    }
+                         HttpServletResponse response);
 }
