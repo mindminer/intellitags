@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/v1.0")
 @Api(value = "标签管理 API", tags = {"版本v1.0", "标签管理"})
 public interface TagController {
-
     @ApiOperation(value = "添加标签",
             notes = "<p>添加新的标签"
                     + "<p>输入 name 标签名"
@@ -26,13 +25,16 @@ public interface TagController {
     @ResponseStatus(HttpStatus.CREATED)
     public String addTag(@PathVariable String name);
 
+
     @ApiOperation(value = "重命名",
             notes = "<p>重命名标签"
                     + "<p>输入 id 标签编号"
                     + "<br>输入 newName 新标签名")
     @RequestMapping(value = "/tag/{id}/{newName}",
             method = {RequestMethod.PUT})
-    public void rename(@PathVariable String id, @PathVariable String newName);
+    public void rename(@PathVariable String id,
+                       @PathVariable String newName);
+
 
     @ApiOperation(value = "删除标签",
             notes = "<p>删除标签"
@@ -40,6 +42,7 @@ public interface TagController {
     @RequestMapping(value = "/tag/{id}",
             method = {RequestMethod.DELETE})
     public void delete(@PathVariable String id);
+
 
     @ApiOperation(value = "罗列标签",
             notes = "<p>简单罗列出所有的标签"
@@ -50,6 +53,7 @@ public interface TagController {
     @ResponseBody
     public List<Tag> list(@RequestParam(value="page",required = false) Integer page);
 
+
     @ApiOperation(value = "列出相关标签",
             notes = "<p>罗列出与给定的标签有关联的其他标签"
                     + "<p>输入 tagId 标签ID。如果输入多个标签，则返回交集"
@@ -58,7 +62,9 @@ public interface TagController {
     @RequestMapping(value = "/tag/{tagId}/relatives",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listRelatives(@PathVariable String[] tagIds, @RequestParam(value="page",required = false)Integer page);
+    public List<Tag> listRelatives(@PathVariable String[] tagIds,
+                                   @RequestParam(value="page",required = false)Integer page);
+
 
     @ApiOperation(value = "列出相关标签",
             notes = "<p>根据给定的文件，列出其所关联的标签"
@@ -68,7 +74,9 @@ public interface TagController {
     @RequestMapping(value = "/tag/{fileId}/association",
             method = {RequestMethod.GET})
     @ResponseBody
-    public List<Tag> listAssociation(@PathVariable String fileId, @RequestParam(value="page",required = false)Integer page);
+    public List<Tag> listAssociation(@PathVariable String fileId,
+                                     @RequestParam(value="page",required = false)Integer page);
+
 
     @ApiOperation(value = "贴标签",
             notes = "<p>为文件贴上标签"
@@ -76,7 +84,9 @@ public interface TagController {
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.POST})
-    public void associate(@PathVariable String fileId, @PathVariable String tagId);
+    public void associate(@PathVariable String fileId,
+                          @PathVariable String tagId);
+
 
     @ApiOperation(value = "取消标签",
             notes = "<p>为文件取消一个标签"
@@ -84,5 +94,6 @@ public interface TagController {
                     + "<br>输入 tagId 标签编号")
     @RequestMapping(value = "/tag/{tagId}/{fileId}",
             method = {RequestMethod.DELETE})
-    public void disconnection(@PathVariable String fileId, @PathVariable String tagId);
+    public void disconnection(@PathVariable String fileId,
+                              @PathVariable String tagId);
 }

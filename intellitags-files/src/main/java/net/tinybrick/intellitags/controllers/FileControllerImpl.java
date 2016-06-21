@@ -105,7 +105,7 @@ public class FileControllerImpl implements FileController{
     @Override
     public List<File> list( String[] patterns,
                             String[] tags,
-                            int page) {
+                            Integer page) {
         return null;
     }
 
@@ -115,8 +115,8 @@ public class FileControllerImpl implements FileController{
 
 
     public void download( String id,
-                           int offset,
-                           int length,
+                          Integer offset,
+                          Integer length,
                          HttpServletResponse response) {
     }
 }

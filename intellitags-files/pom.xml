@@ -15,6 +15,7 @@
 
     <properties>
         <web-core.version>1.0.0-SNAPSHOT</web-core.version>
+        <web-security.version>1.0.0-SNAPSHOT</web-security.version>
         <doc-swagger.version>1.0.0-SNAPSHOT</doc-swagger.version>
     </properties>
 
@@ -53,6 +54,12 @@
             <groupId>net.tinybrick</groupId>
             <artifactId>doc-swagger</artifactId>
             <version>${doc-swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.tinybrick</groupId>
+            <artifactId>web-security</artifactId>
+            <version>${web-security.version}</version>
         </dependency>
     </dependencies>
 </project>

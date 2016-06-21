@@ -4,6 +4,7 @@ package net.tinybrick.intellitags;
  * Created by wangji on 2016/6/15.
  */
 import net.tinybrick.doc.configuration.AipDocConfigure;
+import net.tinybrick.security.configure.SecurityConfigure;
 import net.tinybrick.web.configure.ApplicationCoreConfigure;
 import org.apache.log4j.Logger;
 import org.springframework.boot.Banner;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @ComponentScan
-@Import(value = {ApplicationCoreConfigure.class, AipDocConfigure.class})
+@Import(value = {ApplicationCoreConfigure.class, AipDocConfigure.class, SecurityConfigure.class})
 public class IntellitagsMain {
     private static Logger logger = Logger.getLogger(IntellitagsMain.class);
 
